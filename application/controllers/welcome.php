@@ -13,7 +13,8 @@ class Welcome_Controller extends Template_Controller {
 	// Disable this controller when Kohana is set to production mode.
 	// See http://docs.kohanaphp.com/installation/deployment for more details.
 	const ALLOW_PRODUCTION = FALSE;
-        protected $restrict_guest = FALSE;
+        protected $restrict_guest = TRUE;
+        protected $restrict_roles = array('member');
 
 	// Set the name of the template to use
 
