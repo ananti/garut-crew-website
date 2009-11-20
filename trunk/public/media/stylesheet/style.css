@@ -37,7 +37,7 @@ div#footer{clear:both;border:1px solid #4e0000;height:25px;background:#ae0000;fo
 div#footer_left{float:left;height:24px;font-weight:normal;line-height:24px;margin-left:5px;}
 div#footer_right{float:right;height:24px;display:block;line-height:24px;margin-right:5px;}
 
-div#login_block{float:right;}
+div#login_block{}
 
 form span.error {display:block;font-weight:bold;color:#ae0000;background:yellow;text-align:right;}
 

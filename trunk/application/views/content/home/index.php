@@ -1,4 +1,4 @@
-<div id="main_home">
+<div id="main">
     test
     <?echo $body;?>
 </div>
