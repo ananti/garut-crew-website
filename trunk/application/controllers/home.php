@@ -12,7 +12,9 @@ class Home_Controller extends Template_Controller {
      */
     public function index()
     {
-        
+        $this->title = "Home";
+        $this->content->body = "<strong>Hello world</strong>";
+        $this->head->head = "tests";
     }
 
 }
