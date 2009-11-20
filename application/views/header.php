@@ -18,7 +18,7 @@
         <li><?=html::anchor(url::site('login', 'http'), "Sign In")?></li>
     </ul>
     <? else : ?>
-    <span>Welcome, <?//=$this->auth_user->full_name?></span>
+    <span>Welcome, <?=$this->auth_user->first_name . ' ' . $this->auth_user->last_name?></span>
     <ul>
         <!-- TODO Link ke member private message -->
         <li><?=html::anchor(url::site('member/edit/'.$this->auth_user->id), "Setting")?></li>

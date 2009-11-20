@@ -5,7 +5,7 @@
  */
 class Users_Controller extends Template_Controller {
     public $template = 'two_column';
-    protected $restrict_outside_role = array('admin');
+    protected $restrict_outside_roles = array('administrator');
 
     /**
      * Default index, menampilkan member
@@ -34,19 +34,69 @@ class Users_Controller extends Template_Controller {
     public function edit($userid)
     {
         //TODO: view
-        $member = ORM::factory('user', $userid);
-        if (!$member->loaded)
+        $user = ORM::factory('user', $userid);
+        if (!$user->loaded)
         {
             $this->redirect('administrator/users', "Not Found", "Specified user not found");
         }
         else
         {
             if ($_POST) {
-                
+                if ($_POST['username'] != $user->username && User_Model::exists_username($_POST['username']))
+                {
+                    $this->redirect(url::site('administrator/users/edit/' . $user->id), "Failed", "Username already exists");
+                }
+                else if ($_POST['email'] != $user->email && User_Model::exists_email($_POST['email']))
+                {
+                    $this->redirect(url::site('administrator/users/edit/' . $user->id), "Failed", "Email already exists");
+                }
+                else if (isset($_POST['password']) && strlen($_POST['password']) > 0 && $_POST['password'] != $_POST['confpassword'])
+                {
+                    $this->redirect(url::site('administrator/users/edit/' . $user->id), "Failed", "Password mismatch");
+                }
+                else {
+                    $user->username = $_POST['username'];
+                    $user->first_name = $_POST['first_name'];
+                    $user->last_name = $_POST['last_name'];
+                    $user->email = $_POST['email'];
+                    $user->birthday = $_POST['birthday'];
+                    $user->address = $_POST['address'];
+                    $user->zipcode = $_POST['zipcode'];
+                    $user->phone = $_POST['phone'];
+                    
+                    $roles = ORM::factory('role')->find_all();
+                    foreach($roles as $role)
+                    {
+                        $user->remove($role);
+                    }
+                    if(isset($_POST['active']))
+                    {
+                        $user->add(ORM::factory('role', 'login'));
+                    }
+                    if (isset($_POST['role']))
+                    {
+                        switch ($_POST['role']) {
+                            case 'administrator':
+                                $user->add(ORM::factory('role', 'administrator'));
+                                break;
+                            case 'member':
+                                $user->add(ORM::factory('role', 'member'));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (isset($_POST['password']) && strlen($_POST['password']) > 0)
+                    {
+                        $user->password = $_POST['password'];
+                    }
+                    $user->save();
+                    $this->redirect(url::site('administrator/users/edit/' . $user->id), "Success", "Success");
+                }
             }
             else {
-                $this->content->member = $member;
-                $this->head->member= $member;
+                $this->content->user = $user;
+                $this->head->user = $user;
                 $this->title = 'User Edit';
             }
         }
