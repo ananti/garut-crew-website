@@ -7,7 +7,7 @@ $table_header = '<table class="list main">
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Joined</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -58,7 +58,13 @@ $table_header = '<table class="list main">
                 <td><?=html::anchor('user/view/'.$user->id, $user->username)?></td>
                 <td><?=html::anchor('user/view/'.$user->id, $user->first_name . ' ' . $user->last_name)?></td>
                 <td><?=html::mailto($user->email)?></td>
-                <td><?//=$user->join_time?></td>
+                <td><?
+                   $db = new Database();
+                   $role = $db->query('SELECT *
+                           FROM `roles_users`
+                           JOIN `users`
+                           ON (users.id = roles_users.user_id AND roles_users.role_id = 1)');
+                ?></td>
                 <td>
                     <?=html::anchor('administrator/users/edit/'.$user->id, 'Edit')?>
                     <?=html::anchor('#', 'Delete')?>
