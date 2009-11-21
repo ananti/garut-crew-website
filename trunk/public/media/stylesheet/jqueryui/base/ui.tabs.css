@@ -1,0 +1,11 @@
+/* Tabs
+----------------------------------*/
+.ui-tabs { padding: .2em; zoom: 1; }
+.ui-tabs .ui-tabs-nav { list-style: none;margin: 0;padding: 0;}
+.ui-tabs .ui-tabs-nav li { display: inline; }
+.ui-tabs .ui-tabs-nav li a { padding: 7px 5px 3px;background-color: #fffff5;color: #ae0000;text-decoration: none;font-weight:bold;font-size:12px;border:1px solid #ae0000; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { background-color: #ae0000;color: #fff;padding-top: 7px; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { background-color: #ae0000;color: #fff;padding-top: 7px; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-panel { padding: 5px;margin-top: 3px;border: 1px solid #ae0000;display:block;color:#000; }
+.ui-tabs .ui-tabs-hide { display: none !important; }
