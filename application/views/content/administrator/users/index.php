@@ -47,7 +47,7 @@ $table_header = '<table class="list main">
         <ul>
             <li><a href="#all_tab">All</a></li>
             <li><a href="#administrator_tab">Administrators</a></li>
-            <li><a href="#coach_tab">Members</a></li>
+            <li><a href="#member_tab">Members</a></li>
         </ul>
         <div id="all_tab" class="container">
             <?=$table_header?>
@@ -60,10 +60,13 @@ $table_header = '<table class="list main">
                 <td><?=html::mailto($user->email)?></td>
                 <td><?
                    $db = new Database();
-                   $role = $db->query('SELECT *
-                           FROM `roles_users`
-                           JOIN `users`
-                           ON (users.id = roles_users.user_id AND roles_users.role_id = 1)');
+                   $role = $db->query('SELECT role_id FROM roles_users WHERE user_id = ? AND role_id <> 2' , $user->id);
+                   foreach ($role as $r)
+                        $role_id = $r->role_id;
+
+                   $role = ORM::factory('role')->where('id' , $role_id)->select('name')->find_all();
+                   foreach ($role as $r)
+                        echo $r->name;
                 ?></td>
                 <td>
                     <?=html::anchor('administrator/users/edit/'.$user->id, 'Edit')?>
@@ -74,7 +77,62 @@ $table_header = '<table class="list main">
             </tbody>
             </table>
         </div>
-        
+        <div id="administrator_tab" class="container">
+            <?=$table_header?>
+            <?foreach($administrators as $user):?>
+            <tr class="<?=text::alternate('odd', 'even')?>">
+                <td></td>
+                <td><?=$user->id?></td>
+                <td><?=html::anchor('user/view/'.$user->id, $user->username)?></td>
+                <td><?=html::anchor('user/view/'.$user->id, $user->first_name . ' ' . $user->last_name)?></td>
+                <td><?=html::mailto($user->email)?></td>
+                <td><?
+                   $db = new Database();
+                   $role = $db->query('SELECT role_id FROM roles_users WHERE user_id = ? AND role_id <> 2' , $user->id);
+                   foreach ($role as $r)
+                        $role_id = $r->role_id;
+
+                   $role = ORM::factory('role')->where('id' , $role_id)->select('name')->find_all();
+                   foreach ($role as $r)
+                        echo $r->name;
+                ?></td>
+                <td>
+                    <?=html::anchor('administrator/users/edit/'.$user->id, 'Edit')?>
+                    <?=html::anchor('#', 'Delete')?>
+                </td>
+            </tr>
+            <?endforeach;?>
+            </tbody>
+            </table>
+        </div>
+        <div id="member_tab" class="container">
+            <?=$table_header?>
+            <?foreach($members as $user):?>
+            <tr class="<?=text::alternate('odd', 'even')?>">
+                <td></td>
+                <td><?=$user->id?></td>
+                <td><?=html::anchor('user/view/'.$user->id, $user->username)?></td>
+                <td><?=html::anchor('user/view/'.$user->id, $user->first_name . ' ' . $user->last_name)?></td>
+                <td><?=html::mailto($user->email)?></td>
+                <td><?
+                   $db = new Database();
+                   $role = $db->query('SELECT role_id FROM roles_users WHERE user_id = ? AND role_id <> 2' , $user->id);
+                   foreach ($role as $r)
+                        $role_id = $r->role_id;
+
+                   $role = ORM::factory('role')->where('id' , $role_id)->select('name')->find_all();
+                   foreach ($role as $r)
+                        echo $r->name;
+                ?></td>
+                <td>
+                    <?=html::anchor('administrator/users/edit/'.$user->id, 'Edit')?>
+                    <?=html::anchor('#', 'Delete')?>
+                </td>
+            </tr>
+            <?endforeach;?>
+            </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
