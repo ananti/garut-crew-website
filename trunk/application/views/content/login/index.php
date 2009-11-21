@@ -20,7 +20,7 @@
             </tr><tr>
                 <td colspan="2">
                     <?=form::submit('submit', 'Login')?>
-                    <?=html::anchor('registration', 'Register')?>
+                    <?=html::anchor('register', 'Register')?>
                 </td>
             </tr>
         </table>

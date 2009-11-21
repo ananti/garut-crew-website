@@ -12,7 +12,7 @@
  * @license    http://kohanaphp.com/license.html
  */
 class Captcha_Controller extends Controller {
-
+    protected $restrict_guest = FALSE;
 	public function __call($method, $args)
 	{
 		// Output the Captcha challenge resource (no html)

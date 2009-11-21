@@ -10,7 +10,7 @@ class Controller extends Controller_Core
     protected $restrict_guest = TRUE;
     protected $restrict_roles = NULL;
     protected $restrict_outside_roles = NULL;
-	protected $items_per_page = 20;	//default item per page-->pagination
+    protected $items_per_page = 20;	//default item per page-->pagination
     //TODO: Restrict outside role
 
     /**
