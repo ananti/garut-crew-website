@@ -180,7 +180,7 @@ class User_Controller extends JSON_Controller {
                 $user->birthday = $_POST['birthday'];
                 if (isset($_POST['password']) && strlen($_POST['password']) > 0)
                 {
-                    $member->password = $_POST['password'];
+                    $user->password = $_POST['password'];
                 }
                 $user->save();
                 if ($user->has_role('member')) 
@@ -198,64 +198,67 @@ class User_Controller extends JSON_Controller {
      */
     public function memberedit($id)
     {
-        if ($this->auth_user->has_role('admin'))
+        if ($this->auth_user->has_role('administrator'))
         {
-            $member = ORM::factory('user', $id);
-            if (!$member->loaded)
+            $user = ORM::factory('user', $id);
+            if (!$user->loaded)
             {
                 $this->return = array('result' => false, 'reason' => 'member_not_found');
             }
             else
             {
-                if ($_POST['username'] != $member->username && User_Model::exists_username($_POST['username']))
+                if ($_POST['username'] != $user->username && User_Model::exists_username($_POST['username']))
                 {
                     $this->return = array('result' => false, 'reason' => 'exists_username');
                 }
-                else if ($_POST['email'] != $member->email && User_Model::exists_email($_POST['email']))
+                else if ($_POST['email'] != $user->email && User_Model::exists_email($_POST['email']))
                 {
                     $this->return = array('result' => false, 'reason' => 'exists_email');
                 }
                 else
                 {
-                    $member->username = $_POST['username'];
-                    $member->email = $_POST['email'];
-                    $member->institution = $_POST['institution'];
-                    $member->institution_address = $_POST['institution_address'];
-                    $member->institution_phone = $_POST['institution_phone'];
-                    $member->handphone = $_POST['handphone'];
+                    $user->username = $_POST['username'];
+                    $user->first_name = $_POST['first_name'];
+                    $user->last_name = $_POST['last_name'];
+                    $user->email = $_POST['email'];
+                    $user->birthday = $_POST['birthday'];
+                    $user->address = $_POST['address'];
+                    $user->zipcode = $_POST['zipcode'];
+                    $user->phone = $_POST['phone'];
+                    
                     if (isset($_POST['password']) && strlen($_POST['password']) > 0)
                     {
-                        $member->password = $_POST['password'];
+                        $user->password = $_POST['password'];
                     }
                     //Membuang semua role dulu
                     $roles = ORM::factory('role')->find_all();
                     foreach($roles as $role)
                     {
-                        $member->remove($role);
+                        $user->remove($role);
                     }
                     if(isset($_POST['active']))
                     {
-                        $member->add(ORM::factory('role', 'login'));
+                        $user->add(ORM::factory('role', 'login'));
                     }
                     if (isset($_POST['role']))
                     {
                         switch ($_POST['role']) {
                             case 'admin':
-                                $member->add(ORM::factory('role', 'admin'));
-                                $member->add(ORM::factory('role', 'coach'));
+                                $user->add(ORM::factory('role', 'admin'));
+                                $user->add(ORM::factory('role', 'coach'));
                                 break;
                             case 'coach':
-                                $member->add(ORM::factory('role', 'coach'));
+                                $user->add(ORM::factory('role', 'coach'));
                                 break;
                             case 'learner':
-                                $member->add(ORM::factory('role', 'learner'));
+                                $user->add(ORM::factory('role', 'learner'));
                                 break;
                             default:
                                 break;
                         }
                     }
-                    $member->full_name = $_POST['fullname'];
-                    $member->save();
+                    $user->full_name = $_POST['fullname'];
+                    $user->save();
                     $this->setredirect(url::site('administration/members'), "Success", "Success");
                     $this->return = array('result' => true, 'reason' => 'OK');
                 }
@@ -268,11 +271,11 @@ class User_Controller extends JSON_Controller {
     }
 
 
-    public function membercreate()
+    public function usercreate()
     {
-        if ($this->auth_user->has_role('admin'))
+        if ($this->auth_user->has_role('administrator'))
         {
-            $member = ORM::factory('user');
+            $user = ORM::factory('user');
             if (User_Model::exists_username($_POST['username']))
             {
                 $this->return = array('result' => false, 'reason' => 'exists_username');
@@ -283,45 +286,41 @@ class User_Controller extends JSON_Controller {
             }
             else
             {
-                $member->username = $_POST['username'];
-                $member->email = $_POST['email'];
-                $member->institution = $_POST['institution'];
-                $member->institution_address = $_POST['institution_address'];
-                $member->institution_phone = $_POST['institution_phone'];
-                if (isset($_POST['password']) && strlen($_POST['password']) > 0)
-                {
-                    $member->password = $_POST['password'];
-                }
-                //Membuang semua role dulu
+                $user->username = $_POST['username'];
+                $user->first_name = $_POST['first_name'];
+                $user->last_name = $_POST['last_name'];
+                $user->email = $_POST['email'];
+                $user->birthday = $_POST['birthday'];
+                $user->address = $_POST['address'];
+                $user->zipcode = $_POST['zipcode'];
+                $user->phone = $_POST['phone'];
+
                 $roles = ORM::factory('role')->find_all();
                 foreach($roles as $role)
                 {
-                    $member->remove($role);
+                    $user->remove($role);
                 }
                 if(isset($_POST['active']))
                 {
-                    $member->add(ORM::factory('role', 'login'));
+                    $user->add(ORM::factory('role', 'login'));
                 }
                 if (isset($_POST['role']))
                 {
                     switch ($_POST['role']) {
-                        case 'admin':
-                            $member->add(ORM::factory('role', 'admin'));
-                            $member->add(ORM::factory('role', 'coach'));
+                        case 'administrator':
+                            $user->add(ORM::factory('role', 'administrator'));
                             break;
-                        case 'coach':
-                            $member->add(ORM::factory('role', 'coach'));
-                            break;
-                        case 'learner':
-                            $member->add(ORM::factory('role', 'learner'));
+                        case 'member':
+                            $user->add(ORM::factory('role', 'member'));
                             break;
                         default:
                             break;
                     }
                 }
-                $member->full_name = $_POST['fullname'];
-                $member->save();
-                $this->setredirect(url::site('administration/members'), "Success", "User added");
+                
+                $user->password = $_POST['password'];
+                $user->save();
+                $this->setredirect(url::site('administrator/users'), "Success", "User successfully created");
                 $this->return = array('result' => true, 'reason' => 'OK');
             }
         }

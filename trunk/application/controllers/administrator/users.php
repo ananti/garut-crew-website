@@ -26,6 +26,15 @@ class Users_Controller extends Template_Controller {
         $this->title = 'Member List';
     }
 
+    public function delete($userid) {
+        $user = ORM::factory('user' , $userid);
+        if ($user->loaded) {
+            $user->delete();
+            $this->redirect(url::site('administrator/users') , 'Success' , 'User successfully deleted');
+        }
+        else
+            $this->redirect(url::site('administrator/users') , 'Failed' , 'User not found');
+    }
 
     /**
      * Menyunting data member

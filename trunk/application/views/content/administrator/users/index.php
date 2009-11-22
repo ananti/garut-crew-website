@@ -70,7 +70,7 @@ $table_header = '<table class="list main">
                 ?></td>
                 <td>
                     <?=html::anchor('administrator/users/edit/'.$user->id, 'Edit')?>
-                    <?=html::anchor('#', 'Delete')?>
+                    <?=($this->auth_user->id != $user->id) ? html::anchor('administrator/users/delete/'.$user->id, 'Delete') : ""?>
                 </td>
             </tr>
             <?endforeach;?>
