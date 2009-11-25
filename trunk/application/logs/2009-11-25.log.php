@@ -1,0 +1,22 @@
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+2009-11-25 14:52:31 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, news.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 15:11:22 +07:00 --- error: Uncaught Kohana_Database_Exception: There was an SQL error: Table 'garut-crew.s' doesn't exist - SHOW COLUMNS FROM `s` in file D:/xampp/htdocs/garut-crew-website/system/libraries/drivers/Database/Mysql.php on line 371
+2009-11-25 15:11:30 +07:00 --- error: Uncaught Kohana_Database_Exception: There was an SQL error: Table 'garut-crew.s' doesn't exist - SHOW COLUMNS FROM `s` in file D:/xampp/htdocs/garut-crew-website/system/libraries/drivers/Database/Mysql.php on line 371
+2009-11-25 15:11:41 +07:00 --- error: Uncaught Kohana_Database_Exception: There was an SQL error: Table 'garut-crew.s' doesn't exist - SHOW COLUMNS FROM `s` in file D:/xampp/htdocs/garut-crew-website/system/libraries/drivers/Database/Mysql.php on line 371
+2009-11-25 15:25:49 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, articles/view/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 15:26:01 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, news/view/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 15:33:49 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, news/view/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 15:35:32 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, news/view1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 15:36:18 +07:00 --- error: Uncaught Kohana_Exception: Invalid method order_by called in Article_Model in file D:/xampp/htdocs/garut-crew-website/system/libraries/ORM.php on line 257
+2009-11-25 15:46:09 +07:00 --- error: Uncaught PHP Error: Wrong parameter count for strip_tags() in file D:/xampp/htdocs/garut-crew-website/application/views/content/news/index.php on line 17
+2009-11-25 15:52:20 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, administrator/news/edit/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:09:34 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, news/page/2.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:15:53 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, administrator/news.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:27:54 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, administrator/news/create.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:28:04 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, user/view1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:28:12 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, user/view/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:28:17 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, user/view/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:29:25 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, administrator/news/edit/3.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:35:50 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, news/delete/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-25 16:51:51 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, administrator/news/edit/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
