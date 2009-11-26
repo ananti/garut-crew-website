@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.8.1deb1ubuntu0.1
+-- version 3.1.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 25, 2009 at 02:41 PM
--- Server version: 5.0.75
--- PHP Version: 5.2.6-2ubuntu4.3
+-- Generation Time: Nov 26, 2009 at 02:00 PM
+-- Server version: 5.1.30
+-- PHP Version: 5.2.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -27,17 +27,21 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `title` text NOT NULL,
   `content` text NOT NULL,
-  `created_date` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `articles`
 --
 
+INSERT INTO `articles` (`id`, `user_id`, `title`, `content`, `created_date`, `status`) VALUES
+(1, 1, 'Testing 1', '<p><strong>gw dewa</strong></p>', '2009-11-25 14:57:39', 0);
 
 -- --------------------------------------------------------
 
@@ -47,16 +51,18 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
-  `type` int(11) NOT NULL default '0' COMMENT '1: products, 2: designs',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `type` int(11) NOT NULL DEFAULT '0' COMMENT '1: products, 2: designs',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `categories`
 --
 
+INSERT INTO `categories` (`id`, `name`, `type`) VALUES
+(3, 'gelang', 0);
 
 -- --------------------------------------------------------
 
@@ -66,12 +72,12 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL default '0',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
   `content` text NOT NULL,
   `commentator` varchar(100) NOT NULL,
   `commentator_email` varchar(100) NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -87,18 +93,23 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 DROP TABLE IF EXISTS `designs`;
 CREATE TABLE IF NOT EXISTS `designs` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `name` text NOT NULL,
   `description` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `price` int(11) NOT NULL DEFAULT '0',
+  `picture_file_path` varchar(255) DEFAULT NULL,
+  `picture_file_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `designs`
 --
 
+INSERT INTO `designs` (`id`, `category_id`, `user_id`, `name`, `description`, `price`, `picture_file_path`, `picture_file_url`) VALUES
+(1, 3, 1, 'Design 1', '<p><span style="text-decoration: underline;"><strong>test</strong></span></p>', 1000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -108,21 +119,26 @@ CREATE TABLE IF NOT EXISTS `designs` (
 
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `description` text NOT NULL,
   `category_id` int(11) NOT NULL,
-  `picture_url` varchar(255) default NULL,
-  `thumbnail_url` varchar(255) default NULL,
-  `rating` float NOT NULL,
+  `picture_file_path` varchar(255) DEFAULT NULL,
+  `picture_file_url` varchar(100) DEFAULT NULL,
+  `thumbnail_file_path` varchar(255) DEFAULT NULL,
+  `thumbnail_file_url` varchar(100) DEFAULT NULL,
+  `rating` float NOT NULL DEFAULT '0',
+  `rate_count` int(11) NOT NULL DEFAULT '0',
   `price` float NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `products`
 --
 
+INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `picture_file_path`, `picture_file_url`, `thumbnail_file_path`, `thumbnail_file_url`, `rating`, `rate_count`, `price`) VALUES
+(1, 'Gelang Item', '<p>Gelang Merah</p>', 3, NULL, NULL, NULL, NULL, 0, 0, 50000);
 
 -- --------------------------------------------------------
 
@@ -132,10 +148,10 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
@@ -193,7 +209,7 @@ INSERT INTO `roles_users` (`user_id`, `role_id`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `logins` int(10) NOT NULL,
@@ -205,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `address` varchar(255) NOT NULL,
   `zipcode` varchar(11) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
@@ -213,5 +229,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `logins`, `last_login`, `email`, `first_name`, `last_name`, `birthday`, `address`, `zipcode`, `phone`) VALUES
-(1, 'admin', 'f89759ed1c24e9c6ee3fe48851e258f764a6da51fe1e32a833', 27, 1259057473, 'karoldanutama@gmail.com', 'Karol', 'Danutama', '21-05-90', 'Jalan Selat Bangka IV\n', '13440', '08179851878'),
-(10, 'karol', '1a3e4f0a2d6ba94c69ad2925146787c98ec939aab5b0b40977', 1, 1258869570, 'kd_of_recursion@yahoo.com', '', '', '', '', '', '');
+(1, 'admin', 'f89759ed1c24e9c6ee3fe48851e258f764a6da51fe1e32a833', 38, 1259218757, 'karoldanutama@gmail.com', 'Karol', 'Danutama', '21-05-90', 'Jalan Selat Bangka IV\n', '13440', '08179851878'),
+(10, 'karol', 'dd98ad0ece560e9e414f3d44020ee9e8e5c0ae7c0d5513384e', 2, 1259140681, 'kd_of_recursion@yahoo.com', '', '', '', '', '', '');
