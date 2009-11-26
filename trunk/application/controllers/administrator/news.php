@@ -43,4 +43,47 @@ class News_Controller extends Template_Controller {
             $this->redirect(url::site('administrator/news') , "Success" , "Article has been successfully deleted");
         }
     }
+
+    /**
+     * Membuat article baru
+     * 
+     */
+
+    public function create() {
+        if ($_POST) {
+            $article = ORM::factory('article');
+            $article->title = $_POST['title'];
+            $article->user_id = $this->auth_user->id;
+            $article->content = $_POST['content'];
+            $article->status = ($_POST['status'] == 'unpublished')? Article_Model::STATUS_UNPUBLISHED : Article_Model::STATUS_PUBLISHED;
+            $article->save();
+            $this->redirect(url::site('administrator/news/edit/'.$article->id), 'Success', 'Article successfully created');
+        }
+        else {
+            $this->title = "Create New Article";
+        }
+    }
+
+    /**
+     * Mengedit sebuah article
+     * @param <type> $article_id
+     */
+    public function edit($article_id) {
+        if ($_POST) {
+            $article = ORM::factory('article' , $article_id);
+            $article->title = $_POST['title'];
+            $article->user_id = $this->auth_user->id;
+            $article->status = ($_POST['status'] == 'unpublished')? Article_Model::STATUS_UNPUBLISHED : Article_Model::STATUS_PUBLISHED;
+            $article->content = $_POST['content'];
+            $article->save();
+            $this->redirect(url::site('administrator/news/edit/'.$article->id), 'Success', 'Article successfully saved');
+        }
+        else {
+            $article = ORM::factory('article' , $article_id);
+            if ($article->loaded) {
+                $this->content->article = $article;
+                $this->title = "Edit Article";
+            }
+        }
+    }
 }
