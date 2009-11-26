@@ -22,7 +22,7 @@ class News_Controller extends Template_Controller {
             'total_items' => ORM::factory('article')->orderby('created_date' , 'DESC')->count_all(),
             'auto_hide' => true
         ));
-        $articles = ORM::factory('article')->orderby('created_date' , 'DESC')->find_all($this->news_per_page, $pagin->sql_offset);
+        $articles = ORM::factory('article')->where('status' , Article_Model::STATUS_PUBLISHED)->orderby('created_date' , 'DESC')->find_all($this->news_per_page, $pagin->sql_offset);
         $this->content->articles = $articles;
         $this->content->pagin = $pagin;
         $this->title = "Recent News";
@@ -34,7 +34,7 @@ class News_Controller extends Template_Controller {
      */
     public function view($article_id) {
         $article = ORM::factory('article' , $article_id);
-        if (!$article->loaded)
+        if (!$article->loaded || $article->status != Article_Model::STATUS_PUBLISHED)
             $this->redirect(url::site('news') , "Failed" , "There is no such article");
         else {
             $this->title = "News : " . substr($article->title , 0 , 100);

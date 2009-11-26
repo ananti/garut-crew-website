@@ -11,6 +11,7 @@
             <tr>
                 <th>Title</th>
                 <th>Author</th>
+                <th>Status</th>
                 <th>Date Created</th>
                 <th>Action</th>
             </tr>
@@ -25,6 +26,7 @@
             <tr class="<?=text::alternate('odd' , 'even')?>">
                 <td><?=html::anchor('news/view/' . $article->id , $article->title)?></td>
                 <td><?if ($article->user_id != 0) echo html::anchor('user/view/' . $article->user_id , ORM::factory('user' , $article->user_id)->first_name)?></td>
+                <td><?=($article->status == Article_Model::STATUS_PUBLISHED) ? "Published" : "Unpublished"?></td>
                 <td><?=$article->created_date?></td>
                 <td><?=html::anchor('administrator/news/edit/' . $article->id , "Edit")?>  <span class="delete"><?=html::anchor('administrator/news/delete/' . $article->id , "Delete")?></span></td>
             </tr>
