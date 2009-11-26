@@ -47,7 +47,7 @@ class Products_Controller extends Template_Controller {
                 $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name']);
                 if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $filepath)) {
                     $product->picture_file_path = $filepath;
-                    $product->picture_file_url = $product->GetPictureFileURL(basename($_FILES['picture_file']['name']));
+                    $product->picture_file_url = Product_Model::GetPictureFileURL(basename($_FILES['picture_file']['name']));
                 } else {
                     $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                 }
@@ -63,7 +63,7 @@ class Products_Controller extends Template_Controller {
                 $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['thumbnail_file']['name']);
                 if (move_uploaded_file($_FILES['thumbnail_file']['tmp_name'], $filepath)) {
                     $product->thumbnail_file_path = $filepath;
-                    $product->thumbnail_file_url = $product->GetThumbnailFileURL(basename($_FILES['thumbnail_file']['name']));
+                    $product->thumbnail_file_url = Product_Model::GetThumbnailFileURL(basename($_FILES['thumbnail_file']['name']));
                 } else {
                     $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                 }
@@ -99,14 +99,14 @@ class Products_Controller extends Template_Controller {
                     $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name']);
                     if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $filepath)) {
                         $product->picture_file_path = $filepath;
-                        $product->picture_file_url = $product->GetPictureFileURL(basename($_FILES['picture_file']['name']));
+                        $product->picture_file_url = Product_Model::GetPictureFileURL(basename($_FILES['picture_file']['name']));
                     } else {
                         $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                     }
                 }
 
                 if (isset($_POST['delete_picture_file']) && $_POST['delete_picture_file'] == "Delete") {
-                    if (file_exists($product->picture_file_path)) unlink($product->picture_file_path);
+                    //if (file_exists($product->picture_file_path)) unlink($product->picture_file_path);
                     $product->picture_file_path = NULL;
                     $product->picture_file_url = NULL;
                 }
@@ -115,14 +115,14 @@ class Products_Controller extends Template_Controller {
                     $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['thumbnail_file']['name']);
                     if (move_uploaded_file($_FILES['thumbnail_file']['tmp_name'], $filepath)) {
                         $product->thumbnail_file_path = $filepath;
-                        $product->thumbnail_file_url = $product->GetThumbnailFileURL(basename($_FILES['thumbnail_file']['name']));
+                        $product->thumbnail_file_url = Product_Model::GetThumbnailFileURL(basename($_FILES['thumbnail_file']['name']));
                     } else {
                         $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                     }
                 }
 
                 if (isset($_POST['delete_thumbnail_file']) && $_POST['delete_thumbnail_file'] == "Delete") {
-                    if (file_exists($product->thumbnail_file_path)) unlink($product->thumbnail_file_path);
+                    //if (file_exists($product->thumbnail_file_path)) unlink($product->thumbnail_file_path);
                     $product->thumbnail_file_path = NULL;
                     $product->thumbnail_file_url = NULL;
                 }

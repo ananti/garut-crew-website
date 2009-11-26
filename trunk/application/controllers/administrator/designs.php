@@ -49,14 +49,14 @@ class Designs_Controller extends Template_Controller {
                     $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name']);
                     if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $filepath)) {
                         $design->picture_file_path = $filepath;
-                        $design->picture_file_url = $design->GetPictureFileURL(basename($_FILES['picture_file']['name']));
+                        $design->picture_file_url = Design_Model::GetPictureFileURL(basename($_FILES['picture_file']['name']));
                     } else {
                         $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                     }
                 }
 
                 if (isset($_POST['delete_picture_file']) && $_POST['delete_picture_file'] == "Delete") {
-                    if (file_exists($design->picture_file_path)) unlink($design->picture_file_path);
+                    //if (file_exists($design->picture_file_path)) unlink($design->picture_file_path);
                     $design->picture_file_path = NULL;
                     $design->picture_file_url = NULL;
                 }
@@ -89,14 +89,14 @@ class Designs_Controller extends Template_Controller {
                 $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name']);
                 if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $filepath)) {
                     $design->picture_file_path = $filepath;
-                    $design->picture_file_url = $design->GetPictureFileURL(basename($_FILES['picture_file']['name']));
+                    $design->picture_file_url = Design_Model::GetPictureFileURL(basename($_FILES['picture_file']['name']));
                 } else {
                     $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                 }
             }
 
             if (isset($_POST['delete_picture_file']) && $_POST['delete_picture_file'] == "Delete") {
-                if (file_exists($design->picture_file_path)) unlink($design->picture_file_path);
+                //if (file_exists($design->picture_file_path)) unlink($design->picture_file_path);
                 $design->picture_file_path = NULL;
                 $design->picture_file_url = NULL;
             }
