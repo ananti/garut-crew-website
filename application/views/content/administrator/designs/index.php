@@ -8,7 +8,7 @@
     </div>
     <table>
         <tr>
-            <td>
+            <td valign="top">
                 <?=html::anchor(url::site('administrator/designs') , "All")?><br />
                 <?foreach ($categories as $category) :?>
                 <?=html::anchor(url::site('administrator/designs/index/' . $category->id) , $category->name)?><br />

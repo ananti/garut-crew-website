@@ -2,16 +2,16 @@
     <h1 class="title">Product List</h1>
     <div class="links">
         <ul>
-            <li><?=html::anchor('administrator/products/create' , 'Create')?></li>
-            <li><?=html::anchor('administrator/products' , 'List')?></li>
+            <li><a href="javascript:history.go(-1)">Back</a></li>
+            <li><?=html::anchor('products' , 'List')?></li>
         </ul>
     </div>
     <table>
         <tr>
             <td valign="top">
-                <?=html::anchor(url::site('administrator/products') , "All")?><br />
+                <?=html::anchor(url::site('products') , "All")?><br />
                 <?foreach ($categories as $category) :?>
-                <?=html::anchor(url::site('administrator/products/index/' . $category->id) , $category->name)?><br />
+                <?=html::anchor(url::site('products/index/' . $category->id) , $category->name)?><br />
                 <?endforeach;?>
             </td>
             <td><table class="list main">
@@ -21,7 +21,6 @@
                         <th>Category</th>
                         <th>Rating</th>
                         <th>Price</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +35,6 @@
                         <td><?=ORM::factory('category' , $product->category_id)->name?></td>
                         <td><?=$product->rating?></td>
                         <td>Rp <?=$product->price?></td>
-                        <td><?=html::anchor('administrator/products/edit/' . $product->id , "Edit")?> <span class="delete"><?=html::anchor('administrator/products/delete/' . $product->id , "Delete")?></span></td>
                     </tr>
                     <?endforeach;?>
                 <?endif;?>
