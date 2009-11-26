@@ -3,19 +3,30 @@
 class Products_Controller extends Template_Controller {
     protected $restrict_outside_roles = array('administrator');
 
-    public function index($category_id = NULL) {
-        $pagin = new Pagination (array(
-            'base_url' => 'administrator/products/index/page/',
-            'uri_segment' => 'page',
-            'items_per_page' => $this->items_per_page,
-            'style' => 'digg',
-            'total_items' => ORM::factory('product')->count_all(),
-            'auto_hide' => true
-        ));
-        if (is_null($category_id))
+    public function index($category_id = 0) {
+        if ($category_id == 0) {
+            $pagin = new Pagination (array(
+                'base_url' => 'administrator/products/index/0/page/',
+                'uri_segment' => 'page',
+                'items_per_page' => $this->items_per_page,
+                'style' => 'digg',
+                'total_items' => ORM::factory('product')->count_all(),
+                'auto_hide' => true
+            ));
             $products = ORM::factory('product')->find_all($this->items_per_page , $pagin->sql_offset);
-        else
+        }
+        else {
+            $pagin = new Pagination (array(
+                //'base_url' => 'administrator/products/index/page/',
+                'uri_segment' => 'page',
+                'items_per_page' => $this->items_per_page,
+                'style' => 'digg',
+                'total_items' => ORM::factory('product')->where('category_id' , $category_id)->count_all(),
+                'auto_hide' => true
+            ));
             $products = ORM::factory('product')->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
+        }
+
         $this->title = "Product List";
         $this->content->products = $products;
         $this->content->categories = ORM::factory('category')->find_all();
@@ -76,8 +87,8 @@ class Products_Controller extends Template_Controller {
 
     public function edit($product_id) {
         $product = ORM::factory('product' , $product_id);
-        if ($_POST) {
-            if ($product->loaded) {
+        if ($product->loaded) {
+            if ($_POST) {
                 $product->name = $_POST['name'];
                 $product->category_id = $_POST['category_id'];
                 $product->description = $_POST['description'];
@@ -93,7 +104,7 @@ class Products_Controller extends Template_Controller {
                         $this->redirect(request::referrer(), 'Upload failed','Upload failed');
                     }
                 }
-                
+
                 if (isset($_POST['delete_picture_file']) && $_POST['delete_picture_file'] == "Delete") {
                     if (file_exists($product->picture_file_path)) unlink($product->picture_file_path);
                     $product->picture_file_path = NULL;
@@ -119,13 +130,14 @@ class Products_Controller extends Template_Controller {
                 $product->save();
                 $this->redirect('administrator/products' , 'Success' , 'Product successfully saved');
             }
-        }
-        else {
-            if ($product->loaded) {
+            else {
                 $this->title = "Edit Product Detail";
                 $this->content->product = $product;
                 $this->content->categories = ORM::factory('category')->find_all();
             }
+        }
+        else {
+            $this->redirect('administrator/products' , 'Failed' , 'There is no such product');
         }
     }
 
@@ -134,6 +146,9 @@ class Products_Controller extends Template_Controller {
         if ($product->loaded) {
             $product->delete();
             $this->redirect('administrator/products' , 'Success' , 'Product successfully deleted');
+        }
+        else {
+            $this->redirect('administrator/products' , 'Failed' , 'There is no such product');
         }
     }
 }
