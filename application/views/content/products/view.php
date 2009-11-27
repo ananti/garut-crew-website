@@ -76,4 +76,14 @@
             </tr>
         </tbody>
     </table>
+    <table>
+        <tr>
+            <td>
+                <h3><?=($prev_product->id != 0) ? html::anchor('products/view/' . $prev_product->id , "Previous : " . $prev_product->name) : ""?></h3>
+            </td>
+            <td align="right">
+                <h3><?=($next_product->id != 0) ? html::anchor('products/view/' . $next_product->id , "Next : " . $next_product->name) : ""?></h3>
+            </td>
+        </tr>
+    </table>
 </div>

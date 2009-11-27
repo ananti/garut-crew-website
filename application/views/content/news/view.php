@@ -10,4 +10,14 @@
     <div class="content">
         <?=$article->content?>
     </div>
+    <table>
+        <tr>
+            <td>
+                <?=($prev_article->id != 0) ? html::anchor('news/view/' . $prev_article->id , "Previous : " . $prev_article->title) : ""?>
+            </td>
+            <td align="right">
+                <?=($next_article->id != 0) ? html::anchor('news/view/' . $next_article->id , "Next : " . $next_article->title) : ""?>
+            </td>
+        </tr>
+    </table>
 </div>

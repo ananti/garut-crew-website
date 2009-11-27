@@ -70,6 +70,8 @@ class Products_Controller extends Template_Controller {
                 ));
                 $this->title = $product->name . " Details";
                 $this->content->product = $product;
+                $this->content->prev_product = ORM::factory('product')->where('id > ' , $product_id)->orderby('id' , 'ASC')->limit(1)->find();
+                $this->content->next_product = ORM::factory('product')->where('id < ' , $product_id)->orderby('id' , 'DESC')->limit(1)->find();
                 $this->content->comments = ORM::factory('comment')->where('product_id' , $product_id)->orderby('submit_date' , 'DESC')->find_all($this->comments_per_page , $pagin->sql_offset);
                 $this->content->pagin = $pagin;
             }
