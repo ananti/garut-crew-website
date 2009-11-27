@@ -21,7 +21,7 @@
     <h3>Category</h3>
     <?=form::dropdown('category_id' , $ar_category);?>
     <h3>Picture</h3>
-    <?=form::upload(array('name' => 'picture_file'), '')?>
+    <?=form::upload(array('name' => 'picture_file[1]'), '')?>
     <h3>Price</h3>
     <?=form::input(array('name' => 'price' , 'id' => 'price' , 'class' => 'required'))?>
     <br />

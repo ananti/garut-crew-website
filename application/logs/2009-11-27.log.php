@@ -7,3 +7,5 @@
 2009-11-27 02:52:53 +07:00 --- error: Uncaught PHP Error: Missing argument 1 for html_Core::mailto(), called in D:\xampp\htdocs\garut-crew-website\application\views\content\products\view.php on line 45 and defined in file D:/xampp/htdocs/garut-crew-website/system/helpers/html.php on line 192
 2009-11-27 02:57:04 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, user/view/1.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
 2009-11-27 11:31:29 +07:00 --- error: Uncaught Kohana_Exception: The title property does not exist in the Product_Model class. in file D:/xampp/htdocs/garut-crew-website/system/libraries/ORM.php on line 364
+2009-11-27 20:26:44 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
+2009-11-27 20:27:39 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 30
