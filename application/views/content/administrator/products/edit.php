@@ -27,7 +27,7 @@
     <?else :?>
         <?$max = 0;?>
         <?foreach ($fileurl as $key => $url) :?>
-            <img src="<?=$url?>" width="400px" alt="" /><br />
+            <img src="<?=$url?>" width="200px" alt="" /><br />
             <?=form::checkbox('delete_picture_file['.$key.']' , 'Delete')?><strong>Delete</strong><br /><br /><br />
             <?$max = $key?>
         <?endforeach;?>

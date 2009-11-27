@@ -9,3 +9,6 @@
 2009-11-27 11:31:29 +07:00 --- error: Uncaught Kohana_Exception: The title property does not exist in the Product_Model class. in file D:/xampp/htdocs/garut-crew-website/system/libraries/ORM.php on line 364
 2009-11-27 20:26:44 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
 2009-11-27 20:27:39 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 30
+2009-11-27 21:15:28 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
+2009-11-27 21:15:46 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
+2009-11-27 21:15:51 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
