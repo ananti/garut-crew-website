@@ -40,32 +40,49 @@ class Designs_Controller extends Template_Controller {
             if ($_POST) {
                 $design->name = $_POST['name'];
                 $design->category_id = $_POST['category_id'];
-                $design->user_id = $this->auth_user->id;
                 $design->description = $_POST['description'];
                 $design->price = $_POST['price'];
 
                 $root = DOCROOT."public". DIRECTORY_SEPARATOR."files";
-                if (isset($_FILES['picture_file']) && $_FILES['picture_file']['error'] == UPLOAD_ERR_OK) {
-                    $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name']);
-                    if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $filepath)) {
-                        $design->picture_file_path = $filepath;
-                        $design->picture_file_url = Design_Model::GetPictureFileURL(basename($_FILES['picture_file']['name']));
-                    } else {
-                        $this->redirect(request::referrer(), 'Upload failed','Upload failed');
+
+                $picture_file_path = json_decode($design->picture_file_path , TRUE);
+                $picture_file_url = json_decode($design->picture_file_url , TRUE);
+
+                if (isset($_FILES['picture_file'])) {
+                    $names = $_FILES['picture_file']['name'];
+                    $types = $_FILES['picture_file']['type'];
+                    $tmp_names = $_FILES['picture_file']['tmp_name'];
+                    $errors = $_FILES['picture_file']['error'];
+                    $sizes = $_FILES['picture_file']['size'];
+                    foreach($names as $key => $name) {
+                        if ($_FILES['picture_file']['error'][$key] == UPLOAD_ERR_OK) {
+                            $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name'][$key]);
+                            if (move_uploaded_file($_FILES['picture_file']['tmp_name'][$key], $filepath)) {
+                                $picture_file_path[$key] = $filepath;
+                                $picture_file_url[$key] = design_Model::GetPictureFileURL(basename($_FILES['picture_file']['name'][$key]));;
+                            } else {
+                                $this->redirect(request::referrer(), 'Upload failed','Upload failed');
+                            }
+                        }
                     }
                 }
 
-                if (isset($_POST['delete_picture_file']) && $_POST['delete_picture_file'] == "Delete") {
-                    //if (file_exists($design->picture_file_path)) unlink($design->picture_file_path);
-                    $design->picture_file_path = NULL;
-                    $design->picture_file_url = NULL;
+                if (isset($_POST['delete_picture_file'])) {
+                    foreach($_POST['delete_picture_file'] as $key => $delete) {
+                        if ($delete == 'Delete') {
+                            unset($picture_file_path[$key]);
+                            unset($picture_file_url[$key]);
+                        }
+                    }
                 }
 
+                $design->picture_file_path = (count($picture_file_path) > 0) ? json_encode($picture_file_path) : NULL;
+                $design->picture_file_url = (count($picture_file_url) > 0) ? json_encode($picture_file_url) : NULL;
                 $design->save();
                 $this->redirect('administrator/designs' , 'Success' , 'Design successfully saved');
             }
             else {
-                $this->title = "Edit Design Detail";
+                $this->title = "Edit design Detail";
                 $this->content->design = $design;
                 $this->content->categories = ORM::factory('category')->find_all();
             }
@@ -76,37 +93,45 @@ class Designs_Controller extends Template_Controller {
     }
 
     public function create() {
-        $design = ORM::factory('design');
         if ($_POST) {
+            $design = ORM::factory('design');
             $design->name = $_POST['name'];
             $design->category_id = $_POST['category_id'];
-            $design->user_id = $this->auth_user->id;
             $design->description = $_POST['description'];
             $design->price = $_POST['price'];
+            $design->user_id = $this->auth_user->id;
 
             $root = DOCROOT."public". DIRECTORY_SEPARATOR."files";
-            if (isset($_FILES['picture_file']) && $_FILES['picture_file']['error'] == UPLOAD_ERR_OK) {
-                $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name']);
-                if (move_uploaded_file($_FILES['picture_file']['tmp_name'], $filepath)) {
-                    $design->picture_file_path = $filepath;
-                    $design->picture_file_url = Design_Model::GetPictureFileURL(basename($_FILES['picture_file']['name']));
-                } else {
-                    $this->redirect(request::referrer(), 'Upload failed','Upload failed');
+
+            $picture_file_path = array();
+            $picture_file_url = array();
+
+            if (isset($_FILES['picture_file'])) {
+                $names = $_FILES['picture_file']['name'];
+                $types = $_FILES['picture_file']['type'];
+                $tmp_names = $_FILES['picture_file']['tmp_name'];
+                $errors = $_FILES['picture_file']['error'];
+                $sizes = $_FILES['picture_file']['size'];
+                foreach($names as $key => $name) {
+                    if ($_FILES['picture_file']['error'][$key] == UPLOAD_ERR_OK) {
+                        $filepath = $root.DIRECTORY_SEPARATOR.basename($_FILES['picture_file']['name'][$key]);
+                        if (move_uploaded_file($_FILES['picture_file']['tmp_name'][$key], $filepath)) {
+                            $picture_file_path[$key] = $filepath;
+                            $picture_file_url[$key] = design_Model::GetPictureFileURL(basename($_FILES['picture_file']['name'][$key]));;
+                        } else {
+                            $this->redirect(request::referrer(), 'Upload failed','Upload failed');
+                        }
+                    }
                 }
             }
 
-            if (isset($_POST['delete_picture_file']) && $_POST['delete_picture_file'] == "Delete") {
-                //if (file_exists($design->picture_file_path)) unlink($design->picture_file_path);
-                $design->picture_file_path = NULL;
-                $design->picture_file_url = NULL;
-            }
-
+            $design->picture_file_path = (count($picture_file_path) > 0) ? json_encode($picture_file_path) : NULL;
+            $design->picture_file_url = (count($picture_file_url) > 0) ? json_encode($picture_file_url) : NULL;
             $design->save();
             $this->redirect('administrator/designs' , 'Success' , 'Design successfully saved');
         }
         else {
-            $this->title = "Create New Design";
-            $this->content->design = $design;
+            $this->title = "Create design";
             $this->content->categories = ORM::factory('category')->find_all();
         }
     }

@@ -2,6 +2,7 @@
     $ar_category = array();
     foreach ($categories as $category)
         $ar_category[$category->id] = $category->id . ". " . $category->name;
+    $fileurl = json_decode($design->picture_file_url);
 ?>
 <div id="product_edit" class="main">
     <h1 class="title">Edit Product</h1>
@@ -22,12 +23,19 @@
     <?=form::dropdown('category_id' , $ar_category , $design->category_id);?>
     <h3>Picture</h3>
     <?if (is_null($design->picture_file_path)) : ?>
-    <?=form::upload(array('name' => 'picture_file'), '')?>
+        <?=form::upload(array('name' => 'picture_file[1]'), '')?>
     <?else :?>
-    <img src="<?=$design->picture_file_url?>" width="400px" alt="" /><br />
-    <?=form::checkbox('delete_picture_file' , 'Delete')?><strong>Delete</strong>
+        <?$max = 0;?>
+        <?foreach ($fileurl as $key => $url) :?>
+            <img src="<?=$url?>" width="200px" alt="" /><br />
+            <?=form::checkbox('delete_picture_file['.$key.']' , 'Delete')?><strong>Delete</strong><br /><br /><br />
+            <?$max = $key?>
+        <?endforeach;?>
+        <?$max++;?>
+        <br /><br />
+        <h3><?=form::label('upload' , 'Upload new picture')?></h3>
+        <?=form::upload(array('name' => 'picture_file['.$max.']'), '')?>
     <?endif;?>
-    
     <h3>Price</h3>
     <?=form::input(array('name' => 'price' , 'id' => 'price' , 'class' => 'required') , $design->price)?>
     <br />

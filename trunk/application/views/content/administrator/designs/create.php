@@ -21,13 +21,7 @@
     <h3>Category</h3>
     <?=form::dropdown('category_id' , $ar_category);?>
     <h3>Picture</h3>
-    <?if (is_null($design->picture_file_path)) : ?>
-    <?=form::upload(array('name' => 'picture_file'), '')?>
-    <?else :?>
-    <img src="<?=$design->picture_file_url?>" width="400px" alt="" /><br />
-    <?=form::checkbox('delete_picture_file' , 'Delete')?><strong>Delete</strong>
-    <?endif;?>
-
+    <?=form::upload(array('name' => 'picture_file[1]'), '')?>
     <h3>Price</h3>
     <?=form::input(array('name' => 'price' , 'id' => 'price' , 'class' => 'required'))?>
     <br />
