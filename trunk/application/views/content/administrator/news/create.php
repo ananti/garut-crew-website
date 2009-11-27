@@ -11,8 +11,8 @@
         <h3>Title</h3>
         <?=form::input(array('name'=>'title', 'id'=>'title', 'class' => 'required'))?>
         <h3>Status</h3>
-        <?=form::radio('visibility', 'unpublished', TRUE)?> Unpublished
-        <?=form::radio('visibility', 'published')?> Published
+        <?=form::radio('status', 'unpublished', TRUE)?> Unpublished
+        <?=form::radio('status', 'published')?> Published
         <h3>Content</h3>
         <?=form::textarea(array('name'=>'content', 'id'=>'content'))?>
         <br/>

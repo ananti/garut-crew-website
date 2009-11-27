@@ -22,17 +22,10 @@
     <?=form::dropdown('category_id' , $ar_category , $product->category_id);?>
     <h3>Picture</h3>
     <?if (is_null($product->picture_file_path)) : ?>
-    <?=form::upload(array('name' => 'picture_file'), '')?>
+    <?=form::upload(array('name' => 'picture_file[2]'), '')?>
     <?else :?>
     <img src="<?=$product->picture_file_url?>" width="400px" alt="" /><br />
     <?=form::checkbox('delete_picture_file' , 'Delete')?><strong>Delete</strong>
-    <?endif;?>
-    <h3>Thumbnail</h3>
-    <?if (is_null($product->thumbnail_file_path)) : ?>
-    <?=form::upload(array('name' => 'thumbnail_file'), '')?>
-    <?else :?>
-    <img src="<?=$product->thumbnail_file_url?>" width="100px" alt="" /><br />
-    <?=form::checkbox('delete_thumbnail_file' , 'Delete')?><strong>Delete</strong>
     <?endif;?>
     <h3>Price</h3>
     <?=form::input(array('name' => 'price' , 'id' => 'price' , 'class' => 'required') , $product->price)?>

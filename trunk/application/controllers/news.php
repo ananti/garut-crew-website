@@ -38,6 +38,8 @@ class News_Controller extends Template_Controller {
             $this->redirect(url::site('news') , "Failed" , "There is no such article");
         else {
             $this->title = "News : " . substr($article->title , 0 , 100);
+            $this->content->prev_article = ORM::factory('article')->where('id >' , $article_id)->where('status' , Article_Model::STATUS_PUBLISHED)->orderby('id' , 'ASC')->limit(1)->find();
+            $this->content->next_article = ORM::factory('article')->where('id <' , $article_id)->where('status' , Article_Model::STATUS_PUBLISHED)->orderby('id' , 'DESC')->limit(1)->find();
             $this->content->article = $article;
             $this->content->auth_user = $this->auth_user;
         }
