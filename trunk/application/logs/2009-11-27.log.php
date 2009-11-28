@@ -12,3 +12,5 @@
 2009-11-27 21:15:28 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
 2009-11-27 21:15:46 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
 2009-11-27 21:15:51 +07:00 --- error: Uncaught PHP Error: Invalid argument supplied for foreach() in file D:/xampp/htdocs/garut-crew-website/application/views/content/administrator/products/edit.php on line 29
+2009-11-27 21:31:26 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, designs.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841
+2009-11-27 21:31:54 +07:00 --- error: Uncaught Kohana_404_Exception: The page you requested, administratr/users/search.xhtml, could not be found. in file D:/xampp/htdocs/garut-crew-website/system/core/Kohana.php on line 841

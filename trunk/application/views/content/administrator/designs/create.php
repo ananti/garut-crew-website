@@ -8,7 +8,7 @@
     <div class="links">
         <ul>
             <li><a href="javascript:history.go(-1)">Back</a></li>
-            <li><?=html::anchor('administrator/products' , 'List')?></li>
+            <li><?=html::anchor('administrator/designs' , 'List')?></li>
         </ul>
     </div>
     <br />
