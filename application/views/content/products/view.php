@@ -1,5 +1,6 @@
 <?
     $ar_rating = array('1' => 1 , '2' => 2 , '3' => 3 , '4' => 4 , '5' => 5);
+    $fileurl = json_decode($product->picture_file_url , TRUE);
 ?>
 <div id="product_detail" class="main">
     <h1 class="title"><?=$product->name?> Details</h1>
@@ -7,6 +8,7 @@
         <ul>
             <li><a href="javascript:history.go(-1)">Back</a></li>
             <li><?=html::anchor('products' , 'List')?></li>
+            <li><?=html::anchor('gallery/view/' . $product->id , 'Gallery')?></li>
         </ul>
     </div>
     <br />
@@ -21,7 +23,7 @@
         </tr>
         <tr>
             <td><h3>Picture</h3></td>
-            <td colspan="2"><img src="<?=$product->picture_file_url?>" width="300px" alt="" /></td>
+            <td colspan="2"><img src="<?=$fileurl[1]?>" width="300px" alt="" /></td>
         </tr>
     </table>
     <table cellpadding="5px">
