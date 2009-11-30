@@ -13,7 +13,7 @@ class Products_Controller extends Template_Controller {
                 'total_items' => ORM::factory('product')->count_all(),
                 'auto_hide' => true
             ));
-            $products = ORM::factory('product')->find_all($this->items_per_page , $pagin->sql_offset);
+            $products = ORM::factory('product')->orderby('id' , 'DESC')->find_all($this->items_per_page , $pagin->sql_offset);
         }
         else {
             $pagin = new Pagination (array(
@@ -24,7 +24,7 @@ class Products_Controller extends Template_Controller {
                 'total_items' => ORM::factory('product')->where('category_id' , $category_id)->count_all(),
                 'auto_hide' => true
             ));
-            $products = ORM::factory('product')->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
+            $products = ORM::factory('product')->orderby('id' , 'DESC')->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
         }
 
         $this->title = "Product List";
@@ -40,6 +40,7 @@ class Products_Controller extends Template_Controller {
             $product->name = $_POST['name'];
             $product->category_id = $_POST['category_id'];
             $product->description = $_POST['description'];
+            $product->description_en = $_POST['description_en'];
             $product->price = $_POST['price'];
 
             $root = DOCROOT."public". DIRECTORY_SEPARATOR."files";
@@ -87,6 +88,7 @@ class Products_Controller extends Template_Controller {
                 $product->name = $_POST['name'];
                 $product->category_id = $_POST['category_id'];
                 $product->description = $_POST['description'];
+                $product->description_en = $_POST['description_en'];
                 $product->price = $_POST['price'];
                 
                 $root = DOCROOT."public". DIRECTORY_SEPARATOR."files";

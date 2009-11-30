@@ -14,10 +14,12 @@
     <br />
     <div id="article_form">
     <?=form::open(url::current() , array('name' => 'design_form' , 'id' => 'design_form' , 'enctype' => 'multipart/form-data'))?>
-    <h3>Product Name</h3>
+    <h3>Design Name</h3>
     <?=form::input(array('name' => 'name' , 'id' => 'title' , 'class' => 'required'))?>
-    <h3>Product Description</h3>
+    <h3>Design Description</h3>
     <?=form::textarea(array('name' => 'description' , 'id' => 'content'))?>
+    <h3>Design Description in English</h3>
+    <?=form::textarea(array('name' => 'description_en' , 'id' => 'content_en' , 'style' => 'height:300px;'))?>
     <h3>Category</h3>
     <?=form::dropdown('category_id' , $ar_category);?>
     <h3>Picture</h3>

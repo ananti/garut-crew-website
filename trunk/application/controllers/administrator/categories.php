@@ -14,6 +14,7 @@ class Categories_Controller extends Template_Controller {
             if (!Category_Model::IsCategoryExist($_POST['name']) && strlen($_POST['name']) > 0) {
                 $category = ORM::factory('category');
                 $category->name = $_POST['name'];
+                $category->name_en = $_POST['name_en'];
                 $category->save();
                 $this->redirect('administrator/categories' , "Success" , "Category is successfully added");
             }

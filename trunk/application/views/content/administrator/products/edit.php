@@ -19,6 +19,8 @@
     <?=form::input(array('name' => 'name' , 'id' => 'title' , 'class' => 'required') , $product->name)?>
     <h2>Product Description</h2>
     <?=form::textarea(array('name' => 'description' , 'id' => 'content') , $product->description)?>
+    <h2>Product Description in English</h2>
+    <?=form::textarea(array('name' => 'description_en' , 'id' => 'content_en' , 'style' => 'height:300px;') , $product->description_en)?>
     <h2>Category</h2>
     <?=form::dropdown('category_id' , $ar_category , $product->category_id);?>
     <br />

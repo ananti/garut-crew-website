@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2009 at 02:00 PM
+-- Generation Time: Nov 30, 2009 at 02:00 PM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -30,18 +30,23 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `title` text NOT NULL,
+  `title_en` text NOT NULL,
   `content` text NOT NULL,
+  `content_en` text NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `articles`
 --
 
-INSERT INTO `articles` (`id`, `user_id`, `title`, `content`, `created_date`, `status`) VALUES
-(1, 1, 'Testing 1', '<p><strong>gw dewa</strong></p>', '2009-11-25 14:57:39', 0);
+INSERT INTO `articles` (`id`, `user_id`, `title`, `title_en`, `content`, `content_en`, `created_date`, `status`) VALUES
+(1, 1, 'Testing 1', '', '<p><strong>gw dewa</strong></p>', '', '2009-11-25 14:57:39', 0),
+(5, 1, 'test 1', '', '<p>test 1</p>', '', '2009-11-27 11:07:53', 0),
+(6, 1, 'Kami Menemukan Emas', 'We Have Found Gold', '<p><strong>emas</strong></p>', '<p><strong>golds</strong></p>', '2009-11-27 11:08:07', 0),
+(7, 1, 'Tes 3', 'Test 3', '<p><span style="text-decoration: underline;">Coba create</span></p>', '<p><em><strong>Create test</strong></em></p>', '2009-11-30 13:27:38', 0);
 
 -- --------------------------------------------------------
 
@@ -53,16 +58,19 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
+  `name_en` text NOT NULL,
   `type` int(11) NOT NULL DEFAULT '0' COMMENT '1: products, 2: designs',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `type`) VALUES
-(3, 'gelang', 0);
+INSERT INTO `categories` (`id`, `name`, `name_en`, `type`) VALUES
+(3, 'gelang', '', 0),
+(5, 'kolor', '', 0),
+(6, 'topi', 'hat', 0);
 
 -- --------------------------------------------------------
 
@@ -73,17 +81,29 @@ INSERT INTO `categories` (`id`, `name`, `type`) VALUES
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `design_id` int(11) DEFAULT NULL,
   `content` text NOT NULL,
-  `commentator` varchar(100) NOT NULL,
-  `commentator_email` varchar(100) NOT NULL,
+  `commentator` varchar(100) DEFAULT NULL,
+  `commentator_email` varchar(100) DEFAULT NULL,
+  `submit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `comments`
 --
 
+INSERT INTO `comments` (`id`, `user_id`, `product_id`, `design_id`, `content`, `commentator`, `commentator_email`, `submit_date`) VALUES
+(2, 1, 1, NULL, 'test', NULL, NULL, '2009-11-26 17:44:29'),
+(3, NULL, 1, NULL, 'Test 2', 'Karol Danutama', 'karoldanutama@gmail.com', '2009-11-26 17:52:31'),
+(4, NULL, 3, NULL, 'test 3', 'test 3', 'karoldanutama@gmail.com', '2009-11-26 17:53:03'),
+(5, 1, 1, NULL, 'tes 4', NULL, NULL, '2009-11-27 02:42:47'),
+(6, 1, 1, NULL, 'tes 4', NULL, NULL, '2009-11-27 02:42:58'),
+(7, 1, 5, NULL, '', NULL, NULL, '2009-11-27 02:57:00'),
+(8, NULL, 1, NULL, 'test comment', 'Gogo', 'hallucinogenplus@yahoo.com', '2009-11-27 11:01:25'),
+(9, NULL, 1, NULL, 'Dewa', 'dewa', 'dewa@gmail.com', '2009-11-27 11:01:39');
 
 -- --------------------------------------------------------
 
@@ -98,18 +118,24 @@ CREATE TABLE IF NOT EXISTS `designs` (
   `user_id` int(11) NOT NULL,
   `name` text NOT NULL,
   `description` text NOT NULL,
+  `description_en` text NOT NULL,
   `price` int(11) NOT NULL DEFAULT '0',
-  `picture_file_path` varchar(255) DEFAULT NULL,
-  `picture_file_url` varchar(255) DEFAULT NULL,
+  `picture_file_path` text,
+  `picture_file_url` text,
+  `rating` float DEFAULT '0',
+  `rate_count` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `designs`
 --
 
-INSERT INTO `designs` (`id`, `category_id`, `user_id`, `name`, `description`, `price`, `picture_file_path`, `picture_file_url`) VALUES
-(1, 3, 1, 'Design 1', '<p><span style="text-decoration: underline;"><strong>test</strong></span></p>', 1000, NULL, NULL);
+INSERT INTO `designs` (`id`, `category_id`, `user_id`, `name`, `description`, `description_en`, `price`, `picture_file_path`, `picture_file_url`, `rating`, `rate_count`) VALUES
+(1, 5, 10, 'Design 1', '<p><span style="text-decoration: underline;"><strong>test</strong></span></p>', '', 100000, NULL, NULL, 0, 0),
+(3, 5, 1, 'Design Test 1', '<p><strong>test</strong></p>', '', 300, NULL, NULL, 0, 0),
+(6, 3, 10, 'Design 2', '<p>Desain 2</p>', '<p><em><span style="text-decoration: underline;"><strong>Design 2</strong></span></em></p>', 90000, '{"1":"D:\\\\xampp\\\\htdocs\\\\garut-crew-website\\\\public\\\\files\\\\Picture4.jpg"}', '{"1":"http:\\/\\/localhost\\/garut-crew-website\\/public\\/files\\/Picture4.jpg"}', 0, 0),
+(7, 3, 10, 'Design 3', '<p>Desain 3</p>', '<p><em><span style="text-decoration: underline;"><strong>Design 3</strong></span></em></p>', 900, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -122,23 +148,27 @@ CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `description` text NOT NULL,
+  `description_en` text NOT NULL,
   `category_id` int(11) NOT NULL,
-  `picture_file_path` varchar(255) DEFAULT NULL,
-  `picture_file_url` varchar(100) DEFAULT NULL,
-  `thumbnail_file_path` varchar(255) DEFAULT NULL,
-  `thumbnail_file_url` varchar(100) DEFAULT NULL,
+  `picture_file_path` text,
+  `picture_file_url` text,
   `rating` float NOT NULL DEFAULT '0',
   `rate_count` int(11) NOT NULL DEFAULT '0',
   `price` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `picture_file_path`, `picture_file_url`, `thumbnail_file_path`, `thumbnail_file_url`, `rating`, `rate_count`, `price`) VALUES
-(1, 'Gelang Item', '<p>Gelang Merah</p>', 3, NULL, NULL, NULL, NULL, 0, 0, 50000);
+INSERT INTO `products` (`id`, `name`, `description`, `description_en`, `category_id`, `picture_file_path`, `picture_file_url`, `rating`, `rate_count`, `price`) VALUES
+(1, 'Gelang Item', '<p>Gelang Merah</p>', '<p><em><span style="text-decoration: underline;"><strong>red glove</strong></span></em></p>', 5, '{"1":"D:\\\\xampp\\\\htdocs\\\\garut-crew-website\\\\public\\\\files\\\\CC.JPG","2":"D:\\\\xampp\\\\htdocs\\\\garut-crew-website\\\\public\\\\files\\\\Picture4.jpg"}', '{"1":"http:\\/\\/localhost\\/garut-crew-website\\/public\\/files\\/CC.JPG","2":"http:\\/\\/localhost\\/garut-crew-website\\/public\\/files\\/Picture4.jpg"}', 4.125, 8, 50000),
+(3, 'Test2', '<p><strong><span style="text-decoration: underline;">aku adalah anak gembala</span></strong></p>', '', 5, NULL, NULL, 3, 1, 200),
+(4, 'test 3', '', '', 3, '{"1":"D:\\\\xampp\\\\htdocs\\\\garut-crew-website\\\\public\\\\files\\\\Picture5.jpg","2":"D:\\\\xampp\\\\htdocs\\\\garut-crew-website\\\\public\\\\files\\\\CC.JPG"}', '{"1":"http:\\/\\/localhost\\/garut-crew-website\\/public\\/files\\/Picture5.jpg","2":"http:\\/\\/localhost\\/garut-crew-website\\/public\\/files\\/CC.JPG"}', 3.25, 4, 100),
+(5, 'test 4', '', '', 3, NULL, NULL, 0, 0, 200),
+(8, 'test 6', '<p>test 7</p>', '', 5, NULL, NULL, 0, 0, 200),
+(9, 'Gelang Ijo', '<p>Gelang Ijo</p>', '<p>Green glove</p>', 3, NULL, NULL, 0, 0, 90000);
 
 -- --------------------------------------------------------
 
@@ -229,5 +259,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `logins`, `last_login`, `email`, `first_name`, `last_name`, `birthday`, `address`, `zipcode`, `phone`) VALUES
-(1, 'admin', 'f89759ed1c24e9c6ee3fe48851e258f764a6da51fe1e32a833', 38, 1259218757, 'karoldanutama@gmail.com', 'Karol', 'Danutama', '21-05-90', 'Jalan Selat Bangka IV\n', '13440', '08179851878'),
-(10, 'karol', 'dd98ad0ece560e9e414f3d44020ee9e8e5c0ae7c0d5513384e', 2, 1259140681, 'kd_of_recursion@yahoo.com', '', '', '', '', '', '');
+(1, 'admin', 'f89759ed1c24e9c6ee3fe48851e258f764a6da51fe1e32a833', 54, 1259564037, 'karoldanutama@gmail.com', 'Karol', 'Danutama', '21-05-90', 'Jalan Selat Bangka IV\n', '13440', '08179851878'),
+(10, 'karol', '56184a151447b0fe95405a49d4b19ab3031722f8d577a1f9b1', 8, 1259563982, 'kd_of_recursion@yahoo.com', 'Karol', 'Danutama', '', '', '', '');

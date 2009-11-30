@@ -13,7 +13,7 @@ class Products_Controller extends Template_Controller {
                 'total_items' => ORM::factory('product')->count_all(),
                 'auto_hide' => true
             ));
-            $products = ORM::factory('product')->find_all($this->items_per_page , $pagin->sql_offset);
+            $products = ORM::factory('product')->orderby('id' , 'DESC')->find_all($this->items_per_page , $pagin->sql_offset);
         }
         else {
             $pagin = new Pagination (array(
@@ -24,7 +24,7 @@ class Products_Controller extends Template_Controller {
                 'total_items' => ORM::factory('product')->where('category_id' , $category_id)->count_all(),
                 'auto_hide' => true
             ));
-            $products = ORM::factory('product')->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
+            $products = ORM::factory('product')->orderby('id' , 'DESC')->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
         }
 
         $this->title = "Product List";
@@ -70,8 +70,8 @@ class Products_Controller extends Template_Controller {
                 ));
                 $this->title = $product->name . " Details";
                 $this->content->product = $product;
-                $this->content->prev_product = ORM::factory('product')->where('id > ' , $product_id)->orderby('id' , 'ASC')->limit(1)->find();
-                $this->content->next_product = ORM::factory('product')->where('id < ' , $product_id)->orderby('id' , 'DESC')->limit(1)->find();
+                $this->content->prev_product = ORM::factory('product')->where('id < ' , $product_id)->orderby('id' , 'DESC')->limit(1)->find();
+                $this->content->next_product = ORM::factory('product')->where('id > ' , $product_id)->orderby('id' , 'ASC')->limit(1)->find();
                 $this->content->comments = ORM::factory('comment')->where('product_id' , $product_id)->orderby('submit_date' , 'DESC')->find_all($this->comments_per_page , $pagin->sql_offset);
                 $this->content->pagin = $pagin;
             }

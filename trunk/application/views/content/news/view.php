@@ -1,5 +1,6 @@
 <div id="news_detail" class="main">
     <h1 class="title"><?=$article->title?></h1>
+    <h1 class="title"><?=$article->title_en?></h1>
     <div class="links" style="clear:both">
         <ul>
             <li><a href="javascript:history.go(-1)">Back</a></li>
@@ -9,6 +10,7 @@
     <br />
     <div class="content">
         <?=$article->content?>
+        <?=$article->content_en?>
     </div>
     <table>
         <tr>

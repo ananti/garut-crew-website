@@ -18,7 +18,7 @@
             <?foreach($categories as $category) :?>
             <tr class="<?=text::alternate('odd' , 'even')?>">
                 <td><?=$category->id?></td>
-                <td><?=$category->name?></td>
+                <td><?=$category->name?> | <?=$category->name_en?></td>
                 <td><?=html::anchor('administrator/categories/delete/' . $category->id , "Delete")?></td>
             </tr>
             <?endforeach;?>
@@ -27,8 +27,10 @@
     </table>
     <div id="category_add_form">
         <h3>Add New Category</h3>
+        <em>Insert Indonesian name and English name on the form below respectively for new category</em>
         <?=form::open(url::current() , array('name' => 'category_add' , 'id' => 'category_add'))?>
         <?=form::input(array('name'=>'name', 'id'=>'name'))?>
+        <?=form::input(array('name'=>'name_en', 'id'=>'name_en'))?>
         <?=form::submit('submit' , 'Add')?>
         <?=form::close()?>
     </div>
