@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td><h3>Description</h3></td>
-            <td colspan="2"><?=$product->description?></td>
+            <td colspan="2"><?=$product->description?><?=$product->description_en?></td>
         </tr>
         <tr>
             <td><h3>Picture</h3></td>

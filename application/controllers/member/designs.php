@@ -14,7 +14,7 @@ class Designs_Controller extends Template_Controller {
                 'total_items' => ORM::factory('design')->count_all(),
                 'auto_hide' => true
             ));
-            $designs = ORM::factory('design')->where('user_id' , $this->auth_user->id)->find_all($this->items_per_page , $pagin->sql_offset);
+            $designs = ORM::factory('design')->orderby('id' , 'DESC')->where('user_id' , $this->auth_user->id)->find_all($this->items_per_page , $pagin->sql_offset);
         }
         else {
             $pagin = new Pagination (array(
@@ -25,7 +25,7 @@ class Designs_Controller extends Template_Controller {
                 'total_items' => ORM::factory('design')->where('category_id' , $category_id)->count_all(),
                 'auto_hide' => true
             ));
-            $designs = ORM::factory('design')->where('user_id' , $this->auth_user->id)->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
+            $designs = ORM::factory('design')->orderby('id' , 'DESC')->where('user_id' , $this->auth_user->id)->where('category_id' , $category_id)->find_all($this->items_per_page , $pagin->sql_offset);
         }
 
         $this->title = "Design List";
@@ -42,6 +42,7 @@ class Designs_Controller extends Template_Controller {
                     $design->name = $_POST['name'];
                     $design->category_id = $_POST['category_id'];
                     $design->description = $_POST['description'];
+                    $design->description_en = $_POST['description_en'];
                     $design->price = $_POST['price'];
 
                     $root = DOCROOT."public". DIRECTORY_SEPARATOR."files";
@@ -103,6 +104,7 @@ class Designs_Controller extends Template_Controller {
             $design->name = $_POST['name'];
             $design->category_id = $_POST['category_id'];
             $design->description = $_POST['description'];
+            $design->description_en = $_POST['description_en'];
             $design->price = $_POST['price'];
             $design->user_id = $this->auth_user->id;
 
