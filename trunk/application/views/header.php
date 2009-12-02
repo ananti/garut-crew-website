@@ -8,6 +8,19 @@
     <?=html::script("public/scripts/jquery/jquery.js");?>
     <?if (isset($scripts)) foreach($scripts as $sc) echo html::script($sc);?>
     <?=(isset($head))?$head:''?>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            $("[name='lang']").click(function() {
+                var current_page = location.href;
+                if ($(this).val() == 'EN') {
+                    window.location = '<?=url::site("language/SetLanguageEN")?>';
+                }
+                else if ($(this).val() == 'ID') {
+                    window.location = '<?=url::site("language/SetLanguageID")?>';
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div id="body_wrapper">
