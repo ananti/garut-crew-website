@@ -38,8 +38,16 @@
                     <?if (count($comments) < 1) :?>
                         There is no comment yet, be the first!<br /><br />
                     <?else:?>
+                        <?=form::open(url::current() , array('name' => 'comment_form' , 'id' => 'comment_form'))?>
+                        <?
+                        if (!$this->is_login) {
+                            echo form::label('name' , 'Name') . "<br />" . form::input('name') . "<br /><br />";
+                            echo form::label('email' , 'Email') . "<br />" . form::input('email') . "<br /><br />";
+                        }
+                        ?>
                         <?=form::textarea('content')?><br />
                         <?=form::submit('submit' , 'Comment')?><br /><br />
+                        <?=form::close()?>
                         <?foreach($comments as $comment) :?>
                         By
                         <?
@@ -50,18 +58,10 @@
                             }
                         ?>
                         on <?=$comment->submit_date?><br />
-                        <p><?=$comment->content?></p><br />
+                        <p><?=$comment->content?><br /><br /><?=($this->auth_user->has_role('administrator') ? html::anchor('administrator/comments/delete/' . $comment->id , 'Delete') : "")?></p><br />
                         <?endforeach;?>
                     <?endif;?>
                     <?=$pagin->render()?>
-                    <?=form::open(url::current() , array('name' => 'comment_form' , 'id' => 'comment_form'))?>
-                    <?
-                    if (!$this->is_login) {
-                        echo form::label('name' , 'Name') . "<br />" . form::input('name') . "<br /><br />";
-                        echo form::label('email' , 'Email') . "<br />" . form::input('email') . "<br /><br />";
-                    }
-                    ?>
-                    <?=form::close()?>
                 </td>
                 <td valign="top">
                     <?if ($design->rate_count != 0) : ?>
