@@ -13,6 +13,10 @@ class Controller extends Controller_Core
     protected $items_per_page = 20;	//default item per page-->pagination
     protected $comments_per_page = 5;
     protected $news_per_page = 10;
+    protected $lang_cookie_key = 'garut_crew_lang';
+    protected $lang;
+    const LANG_EN = 'EN';
+    const LANG_ID = 'ID';
     //TODO: Restrict outside role
 
     /**
@@ -25,6 +29,12 @@ class Controller extends Controller_Core
         $session_key = Kohana::config('auth.session_key');
         $this->auth_user = Session::instance()->get($session_key);
         $this->is_login = (isset($this->auth_user) && ($this->auth_user));
+
+        if (is_null(cookie::get($this->lang_cookie_key))) {
+            cookie::set($this->lang_cookie_key , 'ID');
+        }
+
+        $this->lang = cookie::get($this->lang_cookie_key);
 
         if ($this->restrict_guest && !$this->is_login)
         {

@@ -69,6 +69,8 @@ abstract class Template_Controller extends Controller {
             {
                     $this->content = View::factory('null');
             }
+            $this->head->lang = $this->lang;
+            $this->content->lang = $this->lang;
             if ($this->auto_render == TRUE)
             {
                     // Render the template immediately after the controller method
