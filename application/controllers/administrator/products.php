@@ -66,8 +66,9 @@ class Products_Controller extends Template_Controller {
                     }
                 }
             }
-            ksort($picture_file_path);
-            ksort($picture_file_url);
+
+            if ($picture_file_path != NULL) ksort($picture_file_path);
+            if ($picture_file_url != NULL) ksort($picture_file_url);
             
             $product->picture_file_path = (count($picture_file_path) > 0) ? json_encode($picture_file_path) : NULL;
             $product->picture_file_url = (count($picture_file_url) > 0) ? json_encode($picture_file_url) : NULL;
@@ -123,8 +124,9 @@ class Products_Controller extends Template_Controller {
                         }
                     }
                 }
-                ksort($picture_file_path);
-                ksort($picture_file_url);
+
+                if ($picture_file_path != NULL) ksort($picture_file_path);
+                if ($picture_file_url != NULL) ksort($picture_file_url);
                 
                 $product->picture_file_path = (count($picture_file_path) > 0) ? json_encode($picture_file_path) : NULL;
                 $product->picture_file_url = (count($picture_file_url) > 0) ? json_encode($picture_file_url) : NULL;
