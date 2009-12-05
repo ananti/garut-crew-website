@@ -31,7 +31,7 @@ abstract class Template_Controller extends Controller {
 
     // Default to do auto-rendering
     public $auto_render = TRUE;
-	public $need_template = true;
+    public $need_template = true;
     /**
      * Template loading and setup routine.
      */
@@ -94,7 +94,7 @@ abstract class Template_Controller extends Controller {
 
             // Render the template when the class is destroyed
             $this->template->head = $this->head;
-            $this->template->content = $this->content->render();
+            $this->template->content = $this->content;
             $this->template->title = $this->title;
             $this->template->render(TRUE);
         }

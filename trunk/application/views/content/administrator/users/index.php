@@ -35,7 +35,7 @@ $table_header = '<table class="list main">
         </ul>
     </div>
     <div class="search">
-        <?=form::open('administratr/users/search')?>
+        <?=form::open('administrator/users/search')?>
         <?=form::input('keyword', '')?>
         <?=form::submit('submit', 'Search')?>
         <?=form::close()?>
