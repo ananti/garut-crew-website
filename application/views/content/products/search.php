@@ -22,12 +22,6 @@
     </div>
     <table>
         <tr>
-            <td valign="top">
-                <?=html::anchor(url::site('products') , "All")?><br />
-                <?foreach ($categories as $category) :?>
-                <?=html::anchor(url::site('products/index/' . $category->id) , $category->name)?><br />
-                <?endforeach;?>
-            </td>
             <td><table class="list main">
                 <thead>
                     <tr>
@@ -56,5 +50,4 @@
             </table></td>
         </tr>
     </table>
-    <?=$pagin->render()?>
 </div>
