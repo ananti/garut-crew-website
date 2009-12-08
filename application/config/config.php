@@ -125,4 +125,4 @@ $config['modules'] = array
 );
 
 
-$config['gallery_picture_path'] = "public/files/gallery/";
+$config['gallery_picture_path'] = "public/media/images/gallery/";
