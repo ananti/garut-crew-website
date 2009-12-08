@@ -6,6 +6,19 @@
             <li><?=html::anchor('designs' , 'List')?></li>
         </ul>
     </div>
+    <div class="search">
+        <?=form::open('designs/search' , array('method' => 'get'))?>
+        <?
+            $ar_category = Array(
+                'name' => 'Name',
+                'category' => 'Category'
+            );
+        ?>
+        Search by <?=form::dropdown('search_by' , $ar_category)?>
+        <?=form::input('keyword', '')?>
+        <?=form::submit('submit', 'Search')?>
+        <?=form::close()?>
+    </div>
     <table>
         <tr>
             <td valign="top">
