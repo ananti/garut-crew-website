@@ -123,3 +123,6 @@ $config['modules'] = array
 	// MODPATH.'payment',   // Online payments
 	// MODPATH.'unit_test', // Unit testing
 );
+
+
+$config['gallery_picture_path'] = "public/files/gallery/";
