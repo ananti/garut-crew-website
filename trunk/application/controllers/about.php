@@ -17,7 +17,7 @@ class About_Controller extends Template_Controller {
         $count = 0;
         while (($file = readdir($path)) !== false) {
             $url = url::base() . Kohana::config('core.gallery_picture_path') . $file;
-            if ($file != '.' && $file != '..') {
+            if (!is_dir($file)) {
                 $count++;
                 $files[$count] = $url;
             }
