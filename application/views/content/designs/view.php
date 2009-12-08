@@ -13,6 +13,10 @@
     <br />
     <table>
         <tr>
+            <td><h3>Creator</h3></td>
+            <td colspan="2"><?=html::anchor('user/view/' . ORM::factory('user' , $design->user_id)->id , ORM::factory('user' , $design->user_id)->first_name . " " . ORM::factory('user' , $design->user_id)->last_name)?></td>
+        </tr>
+        <tr>
             <td><h3>Name</h3></td>
             <td colspan="2"><?=$design->name?></td>
         </tr>

@@ -1,17 +1,16 @@
-<div id="product_list" class="main">
-    <h1 class="title">Product Search Result</h1>
+<div id="design_list" class="main">
+    <h1 class="title">Design List</h1>
     <div class="links">
         <ul>
             <li><a href="javascript:history.go(-1)">Back</a></li>
-            <li><?=html::anchor('products' , 'List')?></li>
+            <li><?=html::anchor('designs' , 'List')?></li>
         </ul>
     </div>
     <div class="search">
-        <?=form::open('products/search' , array('method' => 'get'))?>
+        <?=form::open('designs/search' , array('method' => 'get'))?>
         <?
             $ar_category = Array(
                 'name' => 'Name',
-                'price' => 'Price',
                 'category' => 'Category'
             );
         ?>
@@ -32,17 +31,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?if (count($products) < 1) :?>
+                <?if (count($designs) < 1) :?>
                     <tr class="empty">
                         <td colspan="5">No Products</td>
                     </tr>
                 <?else :?>
-                    <?foreach ($products as $product) :?>
+                    <?foreach ($designs as $design) :?>
                     <tr class="<?=text::alternate('odd' , 'even')?>">
-                        <td><?=html::anchor('products/view/' . $product->id , $product->name)?></td>
-                        <td><?=ORM::factory('category' , $product->category_id)->name?></td>
-                        <td><?=$product->rating?></td>
-                        <td>Rp <?=$product->price?></td>
+                        <td><?=html::anchor('designs/view/' . $design->id , $design->name)?></td>
+                        <td><?=ORM::factory('category' , $design->category_id)->name?></td>
+                        <td><?=$design->rating?></td>
+                        <td>Rp <?=$design->price?></td>
                     </tr>
                     <?endforeach;?>
                 <?endif;?>

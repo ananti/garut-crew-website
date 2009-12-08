@@ -80,4 +80,19 @@ class Designs_Controller extends Template_Controller {
             $this->redirect('products' , "Failed" , "There is no such product");
         }
     }
+
+    public function search() {
+        if ($_GET['search_by'] == 'name')
+            $designs = ORM::factory('design')->like('name' , $_GET['keyword'])->orderby('id' , 'DESC')->find_all();
+        else if ($_GET['search_by'] == 'category') {
+            $categories = ORM::factory('category')->like('name' , $_GET['keyword'])->find_all();
+            $designs = ORM::factory('design');
+            foreach($categories as $category) {
+                $designs = $designs->where('category_id' , $category->id);
+            }
+            $designs = $designs->orderby('id' , 'DESC')->find_all();
+        }
+        $this->title = "Design Search Result";
+        $this->content->designs = $designs;
+    }
 }

@@ -30,6 +30,8 @@ class Users_Controller extends Template_Controller {
         $user = ORM::factory('user' , $userid);
         if ($user->loaded) {
             $user->delete();
+            ORM::factory('comment')->where('user_id' , $userid)->delete_all();
+            ORM::factory('design')->where('user_id' , $userid)->delete_all();
             $this->redirect(url::site('administrator/users') , 'Success' , 'User successfully deleted');
         }
         else

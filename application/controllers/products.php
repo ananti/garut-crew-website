@@ -83,16 +83,16 @@ class Products_Controller extends Template_Controller {
 
     public function search() {
         if ($_GET['search_by'] == 'name')
-            $products = ORM::factory('product')->like('name' , $_GET['keyword'])->find_all();
+            $products = ORM::factory('product')->like('name' , $_GET['keyword'])->orderby('id' , 'DESC')->find_all();
         else if ($_GET['search_by'] == 'price')
-            $products = ORM::factory('product')->where('price' , $_GET['keyword'])->find_all();
+            $products = ORM::factory('product')->where('price' , $_GET['keyword'])->orderby('id' , 'DESC')->find_all();
         else if ($_GET['search_by'] == 'category') {
             $categories = ORM::factory('category')->like('name' , $_GET['keyword'])->find_all();
             $products = ORM::factory('product');
             foreach($categories as $category) {
                 $products = $products->where('category_id' , $category->id);
             }
-            $products = $products->find_all();
+            $products = $products->orderby('id' , 'DESC')->find_all();
         }
         $this->title = "Product Search Result";
         $this->content->products = $products;
