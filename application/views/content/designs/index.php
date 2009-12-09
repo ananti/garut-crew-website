@@ -1,3 +1,4 @@
+<?if ($lang == Controller::LANG_EN) : ?>
 <div id="design_list" class="main">
     <h1 class="title">Design List</h1>
     <div class="links">
@@ -57,3 +58,64 @@
     </table>
     <?=$pagin->render()?>
 </div>
+<?else :?>
+<div id="design_list" class="main">
+    <h1 class="title">Daftar Desain</h1>
+    <div class="links">
+        <ul>
+            <li><a href="javascript:history.go(-1)">Kembali</a></li>
+            <li><?=html::anchor('designs' , 'Daftar Desain')?></li>
+        </ul>
+    </div>
+    <div class="search">
+        <?=form::open('designs/search' , array('method' => 'get'))?>
+        <?
+            $ar_category = Array(
+                'name' => 'Nama',
+                'category' => 'Kategori'
+            );
+        ?>
+        Cari berdasarkan <?=form::dropdown('search_by' , $ar_category)?>
+        <?=form::input('keyword', '')?>
+        <?=form::submit('submit', 'Search')?>
+        <?=form::close()?>
+    </div>
+    <table>
+        <tr>
+            <td valign="top">
+                <?=html::anchor(url::site('designs') , "Semua")?><br />
+                <?foreach ($categories as $category) :?>
+                <?=html::anchor(url::site('designs/index/' . $category->id) , $category->name)?><br />
+                <?endforeach;?>
+            </td>
+            <td><table class="list main">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Kategori</th>
+                        <th>Rating</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?if (count($designs) < 1) :?>
+                    <tr class="empty">
+                        <td colspan="5">Tidak ada desain</td>
+                    </tr>
+                <?else :?>
+                    <?foreach ($designs as $design) :?>
+                    <tr class="<?=text::alternate('odd' , 'even')?>">
+                        <td><?=html::anchor('designs/view/' . $design->id , $design->name)?></td>
+                        <td><?=ORM::factory('category' , $design->category_id)->name?></td>
+                        <td><?=$design->rating?></td>
+                        <td>Rp <?=$design->price?></td>
+                    </tr>
+                    <?endforeach;?>
+                <?endif;?>
+                </tbody>
+            </table></td>
+        </tr>
+    </table>
+    <?=$pagin->render()?>
+</div>
+<?endif;?>

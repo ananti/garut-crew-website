@@ -4,6 +4,7 @@
         $ar_category[$category->id] = $category->id . ". " . $category->name;
     $fileurl = json_decode($product->picture_file_url , TRUE);
 ?>
+<?if ($lang == Controller::LANG_EN) : ?>
 <div id="product_edit" class="main">
     <h1 class="title">Edit Product</h1>
     <div class="links">
@@ -51,3 +52,52 @@
     <?=form::close()?>
     </div>
 </div>
+<?else :?>
+<div id="product_edit" class="main">
+    <h1 class="title">Ubah Produk</h1>
+    <div class="links">
+        <ul>
+            <li><a href="javascript:history.go(-1)">Kembali</a></li>
+            <li><?=html::anchor('administrator/products' , 'Daftar Produk')?></li>
+        </ul>
+    </div>
+    <br />
+    <div id="article_form">
+    <?=form::open(url::current() , array('name' => 'product_form' , 'id' => 'product_form' , 'enctype' => 'multipart/form-data'))?>
+    <h2>Nama Produk</h2>
+    <?=form::input(array('name' => 'name' , 'id' => 'title' , 'class' => 'required') , $product->name)?>
+    <h2>Descripsi Produk</h2>
+    <?=form::textarea(array('name' => 'description' , 'id' => 'content') , $product->description)?>
+    <h2>Deskripsi Produk dalam Bahasa Inggris</h2>
+    <?=form::textarea(array('name' => 'description_en' , 'id' => 'content_en' , 'style' => 'height:300px;') , $product->description_en)?>
+    <h2>Kategori</h2>
+    <?=form::dropdown('category_id' , $ar_category , $product->category_id);?>
+    <br />
+    <?if (is_null($product->picture_file_path)) : ?>
+        <h2>Gambar Utama</h2>
+        <?=form::upload(array('name' => 'picture_file[1]'), '')?>
+    <?else :?>
+        <?if (!isset($fileurl[1])) :?>
+            <h2>Gambar Utama</h2>
+            <?=form::upload(array('name' => 'picture_file[1]'), '')?>
+        <?endif;?>
+        <h2>Gambar</h2>
+        <?$max = 0;?>
+        <?foreach ($fileurl as $key => $url) :?>
+            <img src="<?=$url?>" width="200px" alt="" /><br />
+            <?=form::checkbox('delete_picture_file['.$key.']' , 'Delete')?><strong>Hapus</strong><?=($key == 1) ? "<strong> (Gambar Utama)</strong>" : ""?><br /><br /><br />
+            <?$max = $key?>
+        <?endforeach;?>
+        <?$max++;?>
+        <br /><br />
+        <h2><?=form::label('upload' , 'Unggah gambar')?></h2>
+        <?=form::upload(array('name' => 'picture_file['.$max.']'), '')?>
+    <?endif;?>
+    <h2>Harga</h2>
+    <?=form::input(array('name' => 'price' , 'id' => 'price' , 'class' => 'required') , $product->price)?>
+    <br />
+    <?=form::submit('submit' , 'Submit')?>
+    <?=form::close()?>
+    </div>
+</div>
+<?endif;?>
