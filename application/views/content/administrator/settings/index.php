@@ -1,3 +1,4 @@
+<?if ($lang == Controller::LANG_EN) : ?>
 <div id="account_settings" class="main">
     <?=form::open(NULL , array('name' => 'account_settings_form' , 'id' => 'account_settings_form'))?>
     <table class="columnar2" cellspacing="1px">
@@ -52,3 +53,59 @@
     </table>
     <?=form::close()?>
 </div>
+<?else :?>
+<div id="account_settings" class="main">
+    <?=form::open(NULL , array('name' => 'account_settings_form' , 'id' => 'account_settings_form'))?>
+    <table class="columnar2" cellspacing="1px">
+        <tr>
+            <td class="name"><?=form::label('username','Username')?></td>
+            <td><?=form::input('username', $user->username)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('first_name', 'Nama Depan')?></td>
+            <td class="value"><?=form::input('first_name', $user->first_name)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('last_name', 'Nama Belakang')?></td>
+            <td class="value"><?=form::input('last_name', $user->last_name)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('birthday', 'Tanggal Lahir')?></td>
+            <td class="value"><?=form::input('birthday', $user->birthday)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('email','Email')?></td>
+            <td><?=form::input('email', $user->email)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('address','Alamat')?></td>
+            <td><?=form::textarea('address', $user->address)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('zip','Kode pos')?></td>
+            <td><?=form::input('zipcode', $user->zipcode)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('phone','Nomor Telepon')?></td>
+            <td><?=form::input('phone', $user->phone)?></td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('password','Sandi Lewat')?></td>
+            <td><?=form::password('password', '')?><br />(Biarkan kosong jika anda tidak ingin mengubah sandi lewat)</td>
+        </tr>
+        <tr>
+            <td class="name"><?=form::label('confpassword','Konfirmasi Sandi Lewat')?></td>
+            <td><?=form::password('confpassword','')?></td>
+        </tr>
+    </table>
+    <table class="columnar2" cellspacing="1px">
+        <tr>
+            <td colspan="2" style="text-align:center">
+                <?=form::submit('submit', 'Save')?>
+                <a href="javascript:history.go(-1)">Batal</a>
+            </td>
+        </tr>
+    </table>
+    <?=form::close()?>
+</div>
+<?endif;?>

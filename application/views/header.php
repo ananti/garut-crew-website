@@ -27,7 +27,8 @@
 <div  id="top_nav">
     <? if(!$this->is_login) : ?>
     <ul>
-        <li><?=html::anchor(url::site('login', 'http'), "Sign In")?></li>
+        <li><?=html::anchor(url::site('register'), "Register")?></li>
+        <li><?=html::anchor(url::site('login'), "Sign In")?></li>
     </ul>
     <? else : ?>
     <span>Welcome, <?=$this->auth_user->first_name . ' ' . $this->auth_user->last_name?></span>
