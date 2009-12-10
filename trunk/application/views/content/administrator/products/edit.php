@@ -66,7 +66,7 @@
     <?=form::open(url::current() , array('name' => 'product_form' , 'id' => 'product_form' , 'enctype' => 'multipart/form-data'))?>
     <h2>Nama Produk</h2>
     <?=form::input(array('name' => 'name' , 'id' => 'title' , 'class' => 'required') , $product->name)?>
-    <h2>Descripsi Produk</h2>
+    <h2>Deskripsi Produk</h2>
     <?=form::textarea(array('name' => 'description' , 'id' => 'content') , $product->description)?>
     <h2>Deskripsi Produk dalam Bahasa Inggris</h2>
     <?=form::textarea(array('name' => 'description_en' , 'id' => 'content_en' , 'style' => 'height:300px;') , $product->description_en)?>
