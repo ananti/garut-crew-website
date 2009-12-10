@@ -40,7 +40,7 @@ class Login_Controller extends Template_Controller {
     public function logout()
     {
         Auth::instance()->logout();
-        $this->redirect('login', 'Logout Success', 'Logout Success');
+        $this->redirect('home', 'Logout Success', 'Logout Success');
     }
 }
 //end of file
